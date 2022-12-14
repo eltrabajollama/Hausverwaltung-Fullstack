@@ -1,5 +1,7 @@
 package dev.bsinfo.server;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URI;
 
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
@@ -18,6 +20,19 @@ public class StartServer {
 		final ResourceConfig rc = new ResourceConfig().packages(pack);
 		final HttpServer server = JdkHttpServerFactory.createHttpServer(URI.create(url), rc);
 		System.out.println("Ready for Requests....");
+		saveCSV();
 
+	}
+
+	public static void saveCSV(){
+		try {
+			FileWriter myWriter = new FileWriter("Hausverwaltung.csv");
+			myWriter.write("Kundennummer, Datum, Zählerart, Zählernummer, Zählerstand,");
+			myWriter.close();
+			System.out.println("Successfully wrote to the file.");
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
 	}
 }
