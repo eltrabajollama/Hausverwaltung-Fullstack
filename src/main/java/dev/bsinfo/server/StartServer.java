@@ -1,5 +1,6 @@
 package dev.bsinfo.server;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
@@ -26,10 +27,18 @@ public class StartServer {
 
 	public static void saveCSV(){
 		try {
-			FileWriter myWriter = new FileWriter("Hausverwaltung.csv");
-			myWriter.write("Kundennummer, Datum, Zählerart, Zählernummer, Zählerstand,");
-			myWriter.close();
-			System.out.println("Successfully wrote to the file.");
+
+			File idea = new File("Hausverwaltung.csv");
+
+			if (idea.exists()){
+				//do nothing
+			}
+			else {
+				FileWriter myWriter = new FileWriter("Hausverwaltung.csv");
+				myWriter.write("Kundennummer, Datum, Zählerart, Zählernummer, Zählerstand,");
+				myWriter.close();
+				System.out.println("Successfully wrote to the file.");
+			}
 		} catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
