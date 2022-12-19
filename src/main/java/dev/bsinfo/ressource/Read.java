@@ -5,7 +5,6 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,16 +13,17 @@ import java.util.List;
 public class Read {
     @Path("/read")
     @GET
-    public static void getCSV() throws IOException {
+    public static List<String> getCSV() throws IOException {
         File inputFile = new File("Hausverwaltung.csv");
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 
         String line;
-        ArrayList allEnteries = new ArrayList<>();
+        reader.readLine();
+        List<String> result = new ArrayList<>();
         while((line = reader.readLine()) != null){
-            List<String> result = Arrays.asList(line.split("\\s*,\\s*"));
-            allEnteries.add(line);
-            System.out.print(allEnteries);
+            result = Arrays.asList(line.split("\\s*,\\s*"));
+            System.out.print(result);
         }
+        return result;
     }
 }
