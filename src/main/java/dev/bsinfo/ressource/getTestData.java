@@ -2,7 +2,6 @@ package dev.bsinfo.ressource;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import org.json.JSONObject;
 
 
 @Path("test")
