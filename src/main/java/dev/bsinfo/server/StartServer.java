@@ -5,8 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 
+import com.opencsv.CSVWriter;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import dev.bsinfo.gui.mainGui;
 
 import com.sun.net.httpserver.HttpServer;
 
@@ -21,16 +23,50 @@ public class StartServer {
 		final ResourceConfig rc = new ResourceConfig().packages(pack);
 		final HttpServer server = JdkHttpServerFactory.createHttpServer(URI.create(url), rc);
 		System.out.println("Ready for Requests....");
-		saveCSV();
+		mainGui.inputGUI();
 
+		saveCSV();
+		//String[] data1 = {"test", "test", "test", "test", "test"};
+		//writeCSV(data1);
+
+
+	}
+
+
+	public static void writeCSV(String[] dataArray) {
+		// first create file object for file placed at location
+		// specified by filepath
+		File file = new File("Hausverwaltung.csv");
+		try {
+			// create FileWriter object with file as parameter
+			FileWriter outputfile = new FileWriter(file);
+
+			// create CSVWriter object filewriter object as parameter
+			CSVWriter writer = new CSVWriter(outputfile);
+
+			// adding header to csv
+
+
+			// add data to csv
+
+			writer.writeNext(dataArray);
+			System.out.println("added data");
+
+
+			// closing writer connection
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void saveCSV(){
 		try {
 
-			File idea = new File("Hausverwaltung.csv");
+			File luka = new File("Hausverwaltung.csv");
 
-			if (idea.exists()){
+			if (luka.exists()){
 				//do nothing
 			}
 			else {
