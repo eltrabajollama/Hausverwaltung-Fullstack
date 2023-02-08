@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.net.URI;
 
 import com.opencsv.CSVWriter;
+import dev.bsinfo.gui.CSVtoJSON;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import dev.bsinfo.gui.mainGui;
 
 import com.sun.net.httpserver.HttpServer;
+import org.json.JSONArray;
 
 public class StartServer {
 
@@ -61,6 +63,12 @@ public class StartServer {
 		}
 	}
 
+	public static void json() {
+		String filePath = "Hausverwaltung.csv";
+		JSONArray jsonArray = CSVtoJSON.convert(filePath);
+		System.out.println(jsonArray.toString(4));
+	}
+
 	public static void saveCSV(){
 		try {
 
@@ -79,5 +87,9 @@ public class StartServer {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
+		json();
 	}
+
+
+
 }
