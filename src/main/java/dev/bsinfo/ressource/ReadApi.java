@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Path("test")
-public class Read {
+public class ReadApi {
     @Path("/read")
     @GET
     public static List<String> getCSV() throws IOException {

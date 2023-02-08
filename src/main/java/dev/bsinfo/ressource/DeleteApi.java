@@ -10,7 +10,7 @@ import jakarta.ws.rs.PathParam;
 
 
 @Path("test")
-public class Delete {
+public class DeleteApi {
 
     @Path("/delete/{entry_id}")
     @DELETE
