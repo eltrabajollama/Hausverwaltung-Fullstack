@@ -64,7 +64,7 @@ public class StartServer {
 	}
 
 	public static void json() {
-		String filePath = "Hausverwaltung.csv";
+		String filePath = "testdata.csv";
 		JSONArray jsonArray = CSVtoJSON.convert(filePath);
 		System.out.println(jsonArray.toString(4));
 	}
