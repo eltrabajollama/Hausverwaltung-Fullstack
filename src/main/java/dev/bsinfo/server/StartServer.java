@@ -4,17 +4,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
+import java.sql.*;
 
 import com.opencsv.CSVWriter;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import dev.bsinfo.gui.mainGui;
 
 import com.sun.net.httpserver.HttpServer;
 
 public class StartServer {
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws SQLException, IOException {
 		final String pack = "dev.bsinfo.ressource";
 		String url = "http://localhost:8080/rest";
 		System.out.println("Start server");
@@ -23,11 +23,7 @@ public class StartServer {
 		final ResourceConfig rc = new ResourceConfig().packages(pack);
 		final HttpServer server = JdkHttpServerFactory.createHttpServer(URI.create(url), rc);
 		System.out.println("Ready for Requests....");
-		mainGui.inputGUI();
-
-		saveCSV();
-		//String[] data1 = {"test", "test", "test", "test", "test"};
-		//writeCSV(data1);
+		new mainGui();
 
 
 	}
