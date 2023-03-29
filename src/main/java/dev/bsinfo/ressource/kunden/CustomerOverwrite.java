@@ -6,7 +6,7 @@ import jakarta.ws.rs.*;
 
 import java.sql.*;
 
-@Path("overwrite/kunden")
+@Path("overwrite/kunden/{id}")
 @Produces("text/plain")
 @Consumes("application/json")
 public class CustomerOverwrite {
