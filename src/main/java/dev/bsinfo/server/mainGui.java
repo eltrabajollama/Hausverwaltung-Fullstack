@@ -1,6 +1,7 @@
 package dev.bsinfo.server;
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
@@ -47,14 +48,11 @@ public class mainGui extends JFrame implements ActionListener {
         p1.setLayout(new FlowLayout());
 
         JPanel p2 = new JPanel();
-
         JPanel p3 = new JPanel();
 
         button = new JButton("submit");
         button.addActionListener(this);
-
-
-         Kundennummerl = new JLabel("Kundennummer");
+        Kundennummerl = new JLabel("Kundennummer");
         Kundennummer = new JTextField();
         Kundennummer.setPreferredSize(new Dimension(250, 40));
         Zählerartl = new JLabel("Zählerart");
@@ -90,8 +88,11 @@ public class mainGui extends JFrame implements ActionListener {
         p1.add(Kommentar);
         //add the table to the frame
 
-        JLabel lbl = new JLabel("Bitte wählen Sie eine ID zum Löschen");
+        JLabel deleteLabel = new JLabel("Bitte wählen Sie eine ID zum Löschen");
         JButton deleteButton = new JButton("Löschen");
+
+        JLabel editLable = new JLabel("Bitte wählen Sie eine ID zum Bearbeiten");
+        JButton editButton = new JButton("Edit");
 
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/Hausverwaltung", "root", "root");
@@ -105,6 +106,8 @@ public class mainGui extends JFrame implements ActionListener {
                 choices.add(rs.getInt("id"));
             }
             final JComboBox cb = new JComboBox(choices.toArray());
+
+            final JComboBox editList = new JComboBox(choices.toArray());
             deleteButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -123,11 +126,15 @@ public class mainGui extends JFrame implements ActionListener {
                 }
             });
 
-            p3.add(lbl);
+            p2.add(editLable);
+            p2.add(editList);
+            p2.add(editButton);
+
+            p3.add(deleteLabel);
             p3.add(cb);
             p3.add(deleteButton);
             cb.setVisible(true);
-            lbl.setVisible(true);
+            deleteLabel.setVisible(true);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -213,25 +220,27 @@ public class mainGui extends JFrame implements ActionListener {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
 
-            int responseCode = con.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) { // Success
-                BufferedReader in = new BufferedReader(new InputStreamReader(
-                        con.getInputStream()));
-                String inputLine;
-                StringBuffer response = new StringBuffer();
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-                in.close();
+            // create a BufferedReader to read the response
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-                String responseData = response.toString();
-
-                return responseData;
-            } else {
-                System.out.println("GET request failed: " + responseCode);
+            // read the response into a StringBuilder
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = in.readLine()) != null) {
+                System.out.println(response);
+                response.append(line);
             }
-        } catch (IOException e) {
-            System.out.println("Error making GET request: " + e.getMessage());
+            in.close();
+
+            // parse the response into a JSONObject
+            JSONObject jsonObject = new JSONObject(response.toString());
+
+            // access individual properties of the object using their keys
+            String name = jsonObject.getString("data");
+
+            return "not working";
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

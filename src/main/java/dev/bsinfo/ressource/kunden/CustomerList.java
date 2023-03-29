@@ -29,11 +29,12 @@ public class CustomerList {
 
             List<String> dataArray = new ArrayList<>();
 
+            String processedData = null;
             while (rs.next()) {
-                String processedData = processData(rs);
-                dataArray.add(processedData);
+                processedData = processData(rs);
+
             }
-            response.put("data", dataArray);
+            response.put("data", processedData);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
