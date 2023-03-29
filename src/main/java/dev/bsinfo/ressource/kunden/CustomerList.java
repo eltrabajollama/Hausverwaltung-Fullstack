@@ -31,10 +31,11 @@ public class CustomerList {
 
             String processedData = null;
             while (rs.next()) {
-                processedData = processData(rs);
+                processedData = String.valueOf(processData(rs));
+                dataArray.add(processedData);
 
             }
-            response.put("data", processedData);
+            response.put("data", dataArray);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -43,7 +44,7 @@ public class CustomerList {
         return response.toString();
     }
 
-    private String processData(ResultSet rs) throws SQLException {
+    private ArrayList processData(ResultSet rs) throws SQLException {
         List procesData = new ArrayList<>();
         procesData.add(rs.getInt("Kundennummer"));
         procesData.add(rs.getString("Zählerart"));
@@ -52,7 +53,7 @@ public class CustomerList {
         procesData.add(rs.getInt("neu_eingebaut"));
         procesData.add(rs.getString("zählerstand"));
         procesData.add(rs.getString("kommentar"));
-        return procesData.toString();
+        return (ArrayList) procesData;
     }
 }
 

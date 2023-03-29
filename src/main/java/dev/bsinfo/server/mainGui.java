@@ -213,7 +213,7 @@ public class mainGui extends JFrame implements ActionListener {
         return valuetoChange;
     }
 
-    public String getHausverwaltungList() throws IOException {
+    public StringBuilder getHausverwaltungList() throws IOException {
         try {
             URL url = new URL("http://localhost:8080/rest/list/kunden"); // Replace with your API URL
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -231,13 +231,9 @@ public class mainGui extends JFrame implements ActionListener {
             }
             in.close();
 
-            // parse the response into a JSONObject
-            JSONObject jsonObject = new JSONObject(response.toString());
 
-            // access individual properties of the object using their keys
-            String name = jsonObject.getString("data");
 
-            return "not working";
+           return response;
         } catch (Exception e) {
             e.printStackTrace();
         }
