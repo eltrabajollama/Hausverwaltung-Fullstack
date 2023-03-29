@@ -1,7 +1,6 @@
 package dev.bsinfo.server;
 
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;

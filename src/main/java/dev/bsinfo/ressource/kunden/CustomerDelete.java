@@ -26,16 +26,6 @@ public class CustomerDelete {
                     "WHERE id =" + id;
             stmt.executeUpdate(sql);
             ResultSet rs = stmt.executeQuery(QUERY);
-            while(rs.next()){
-                //Display values
-                System.out.print("Kundennummer: " + rs.getInt("Kundennummer"));
-                System.out.print("Zählerart: " + rs.getInt("Zählerart"));
-                System.out.print("Zählernummer: " + rs.getString("Zählernummer"));
-                System.out.println("Datum : " + rs.getString("Datum"));
-                System.out.println("neu_eingebaut : " + rs.getString("neu_eingebaut"));
-                System.out.println("Zählerstand : " + rs.getString("zählerstand"));
-                System.out.println("Kommentar : " + rs.getString("kommentar"));
-            }
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
